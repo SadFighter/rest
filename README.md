@@ -20,7 +20,7 @@
 
 A custom, reactive ASCII homepage for Firefox featuring animated backgrounds, time-based greetings, a digital clock, and a fully functional search bar with custom bookmarks.
 
-![Demo of rest.](assets/demo.gif)
+![Demo of rest.](assets/examples.gif)
 
 ## Features
 
