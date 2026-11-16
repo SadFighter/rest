@@ -119,7 +119,6 @@ rest./
   install-linux.sh    # Interactive installer for Linux
   install-macos.sh    # Interactive installer for macOS
   install-windows.ps1 # Interactive installer for Windows
-  demo.html           # Interactive playground for screenshots (optional)
   assets/             # Folder for images and the demo GIF
   README.md           # This file
 ```
