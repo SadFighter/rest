@@ -1,4 +1,3 @@
-<!-- SOSTITUISCI QUESTO SEGNAPOSTO CON IL TUO LOGO ASCII -->
 <pre>
                                                                           ---.
                                                                       .*@@#-
@@ -33,7 +32,7 @@ A custom, reactive ASCII homepage for Firefox featuring animated backgrounds, ti
 
 ## Credits & Acknowledgments
 
-The vast majority of the visual resources in this project—including the ASCII art generation engine, the animated scenes, the digital clock, the banner text generator, and the core layout styles—were "stolen" (with love) from [ascii.rest](https://ascii.rest). Without their incredible work, this project would not exist.
+The vast majority of the visual resources in this project, including the ASCII art generation engine, the animated scenes, the digital clock, the banner text generator, and the core layout styles, were fetched from [ascii.rest](https://ascii.rest). Without their incredible work, this project would not exist.
 
 Original programming for this project is limited to:
 - The custom search bar logic and engine selector.
@@ -60,21 +59,21 @@ cd rest.
 
 2. Run the installer for your OS:
 
-**🐧 Linux:**
+**Linux:**
 
 ```bash
 chmod +x install-linux.sh
 ./install-linux.sh
 ```
 
-**🍎 macOS:**
+**macOS:**
 
 ```bash
 chmod +x install-macos.sh
 ./install-macos.sh
 ```
 
-**🪟 Windows:**
+**Windows:**
 
 Open PowerShell as Administrator (right-click the Start menu -> Terminal (Admin)), navigate to the folder, and run:
 
