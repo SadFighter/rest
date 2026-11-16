@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -252,7 +252,7 @@
     display: none;
     flex-direction: column;
     z-index: 20;
-    min-width: 140px;
+    min-width: 160px;
     filter:
       drop-shadow(0 4px 8px rgba(0, 0, 0, 1))
       drop-shadow(0 0 15px rgba(0, 0, 0, 0.8));
@@ -412,7 +412,7 @@
     <ascii-art id="clock" piece="digital-clock" options='{"hour12":false,"seconds":true,"date":true}' class="ascii-text"></ascii-art>
 
     <form id="search-form" action="" method="get" target="_top">
-      <input type="text" id="search-input" name="q" placeholder="cerca..." autocomplete="off" autofocus>
+      <input type="text" id="search-input" name="q" placeholder="search..." autocomplete="off" autofocus>
       <select id="engine-select">
         <option value="brave">Brave</option>
         <option value="google">Google</option>
@@ -426,12 +426,12 @@
   <!-- MODALE PERSONALIZZATO -->
   <div id="custom-modal">
     <div class="modal-box">
-      <div class="modal-label" id="modal-title">Titolo</div>
+      <div class="modal-label" id="modal-title">Title</div>
       <input type="text" id="modal-input" class="modal-input" placeholder="..." autocomplete="off">
       <input type="file" id="modal-file" class="modal-input" style="display: none;" accept="image/*">
       <div class="modal-actions">
-        <button type="button" class="modal-btn" id="modal-cancel">Annulla</button>
-        <button type="button" class="modal-btn primary" id="modal-submit">Avanti</button>
+        <button type="button" class="modal-btn" id="modal-cancel">Cancel</button>
+        <button type="button" class="modal-btn primary" id="modal-submit">Next</button>
       </div>
     </div>
   </div>
@@ -535,35 +535,35 @@
     const list = getBookmarks();
 
     if (mode === "add-step1") {
-      modalTitle.textContent = "Inserisci l'URL del sito";
+      modalTitle.textContent = "Enter site URL";
       modalInput.placeholder = "https://...";
-      modalSubmit.textContent = "Avanti";
+      modalSubmit.textContent = "Next";
     } 
     else if (mode === "add-step2") {
-      modalTitle.textContent = "Inserisci un nome";
-      modalSubmit.textContent = "Salva";
+      modalTitle.textContent = "Enter a name";
+      modalSubmit.textContent = "Save";
     }
     else if (mode === "edit-url") {
-      modalTitle.textContent = "Modifica URL";
+      modalTitle.textContent = "Edit URL";
       modalInput.value = list[index].url;
-      modalSubmit.textContent = "Salva";
+      modalSubmit.textContent = "Save";
     }
     else if (mode === "edit-name") {
-      modalTitle.textContent = "Modifica Nome";
+      modalTitle.textContent = "Edit Name";
       modalInput.value = list[index].title;
-      modalSubmit.textContent = "Salva";
+      modalSubmit.textContent = "Save";
     }
     else if (mode === "edit-icon-url") {
-      modalTitle.textContent = "Inserisci URL icona (vuoto per default)";
-      modalInput.placeholder = "https://.../immagine.png";
+      modalTitle.textContent = "Enter icon URL (empty for default)";
+      modalInput.placeholder = "https://.../image.png";
       modalInput.value = (list[index].customIcon && !list[index].customIcon.startsWith("data:")) ? list[index].customIcon : "";
-      modalSubmit.textContent = "Salva";
+      modalSubmit.textContent = "Save";
     }
     else if (mode === "edit-icon-file") {
-      modalTitle.textContent = "Carica file immagine (o lascia vuoto)";
+      modalTitle.textContent = "Upload image file (or leave empty)";
       modalInput.style.display = "none";
       modalFile.style.display = "block";
-      modalSubmit.textContent = "Salva";
+      modalSubmit.textContent = "Save";
     }
 
     modal.classList.add("active");
@@ -729,7 +729,7 @@
       const menuBtn = document.createElement("span");
       menuBtn.className = "bm-menu-btn";
       menuBtn.textContent = "⋮";
-      menuBtn.title = "Opzioni";
+      menuBtn.title = "Options";
       menuBtn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -748,24 +748,19 @@
       dropdown.className = "bm-dropdown";
       
       const menuItems = [
-        { icon: "✎", text: "Modifica URL", action: () => openModal("edit-url", index) },
-        { icon: "T", text: "Modifica Nome", action: () => openModal("edit-name", index) },
-        { icon: "🖼", text: "Modifica Icona", action: () => {
-            // Sottomenu o scelta? Facciamo un prompt logico: chiediamo se file o URL
-            // Per semplicità, apriamo il modale per l'URL, ma diamo la possibilità di caricare un file
-            // Possiamo creare una piccola scelta, o fare due voci nel menu
-            openModal("edit-icon-url", index); // L'utente può incollare un URL o cliccare su "Carica file" (lo gestiremo)
-            // Aggiungiamo un bottone finto nel modale per caricare il file
+        { icon: "✎", text: "Edit URL", action: () => openModal("edit-url", index) },
+        { icon: "T", text: "Edit Name", action: () => openModal("edit-name", index) },
+        { icon: "🖼", text: "Edit Icon", action: () => {
+            openModal("edit-icon-url", index);
             setTimeout(() => {
                const modalActions = document.querySelector('.modal-actions');
-               // Rimuoviamo eventuali bottoni extra precedenti
                const oldExtra = document.getElementById('modal-extra-file');
                if(oldExtra) oldExtra.remove();
                
                const fileBtn = document.createElement('button');
                fileBtn.id = 'modal-extra-file';
                fileBtn.className = 'modal-btn';
-               fileBtn.textContent = 'Sfoglia file...';
+               fileBtn.textContent = 'Browse file...';
                fileBtn.style.marginRight = 'auto';
                fileBtn.onclick = () => {
                  closeModal();
@@ -774,7 +769,7 @@
                modalActions.prepend(fileBtn);
             }, 10);
         }},
-        { icon: "×", text: "Rimuovi", action: () => {
+        { icon: "×", text: "Remove", action: () => {
             const current = getBookmarks();
             current.splice(index, 1);
             saveBookmarks(current);
@@ -823,7 +818,7 @@
       const addBtn = document.createElement("button");
       addBtn.id = "add-bm-btn";
       addBtn.innerHTML = "+";
-      addBtn.title = "Aggiungi bookmark";
+      addBtn.title = "Add bookmark";
       addBtn.addEventListener("click", () => openModal("add-step1"));
 
       const emptyTitle = document.createElement("div");
