@@ -53,7 +53,7 @@ The easiest way to get `rest.` running is to use the automated installer for you
 1. Clone the repository (or download it as a ZIP and extract it):
 
 ```bash
-git clone https://github.com/SadFighter/rest..git
+git clone https://github.com/SadFighter/rest.git
 cd rest.
 ```
 
