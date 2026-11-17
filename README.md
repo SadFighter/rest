@@ -54,7 +54,7 @@ The easiest way to get `rest.` running is to use the automated installer for you
 
 ```bash
 git clone https://github.com/SadFighter/rest.git
-cd rest.
+cd rest
 ```
 
 2. Run the installer for your OS:
