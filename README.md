@@ -16,6 +16,13 @@
 </pre>
 
 # rest.
+""License: MIT" (https://img.shields.io/badge/License-MIT-yellow.svg)" (https://opensource.org/licenses/MIT)
+""Python 3" (https://img.shields.io/badge/Python-3.x-blue.svg?logo=python&logoColor=white)" (https://www.python.org/)
+""Firefox" (https://img.shields.io/badge/Browser-Firefox-FF7139?logo=firefox-browser&logoColor=white)" (https://www.mozilla.org/firefox/)
+""Linux" (https://img.shields.io/badge/Linux-Supported-FCC624?logo=linux&logoColor=black)" (https://github.com/SadFighter/rest)
+""macOS" (https://img.shields.io/badge/macOS-Supported-000000?logo=apple&logoColor=white)" (https://github.com/SadFighter/rest)
+""Windows" (https://img.shields.io/badge/Windows-Supported-0078D4?logo=windows&logoColor=white)" (https://github.com/SadFighter/rest)
+""GitHub Stars" (https://img.shields.io/github/stars/SadFighter/rest?style=flat&logo=github)" (https://github.com/SadFighter/rest)
 
 A custom, reactive ASCII homepage for Firefox featuring animated backgrounds, time-based greetings, a digital clock, and a fully functional search bar with custom bookmarks.
 
