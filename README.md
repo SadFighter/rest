@@ -212,8 +212,8 @@ The Nightly branch is currently undergoing active development, with a focus on e
 
 ### Planned
 
-- [ ] **JSON-Based Configuration & Localization** — Introduce an extensible JSON configuration system to manage user preferences and language resources.
-- [ ] **Community Translations** — Make localization easier to extend, allowing contributors to translate rest. into additional languages through dedicated JSON language files.
+- [ ] **JSON-Based Configuration & Localization** - Introduce an extensible JSON configuration system to manage user preferences and language resources.
+- [ ] **Community Translations** - Make localization easier to extend, allowing contributors to translate rest. into additional languages through dedicated JSON language files.
 
 These features are planned for future Nightly iterations and are not included in the current release.
 
