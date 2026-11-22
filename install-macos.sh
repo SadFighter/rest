@@ -44,9 +44,7 @@ install_rest() {
     <key>ProgramArguments</key>
     <array>
         <string>$(command -v python3)</string>
-        <string>-m</string>
-        <string>http.server</string>
-        <string>8000</string>
+        <string>server.py</string>
     </array>
     <key>WorkingDirectory</key>
     <string>$DIR</string>
@@ -65,7 +63,8 @@ EOF
         echo -e "${CYAN}Adding 'rest.home' to /etc/hosts (may ask for sudo password)...${NC}"
         echo "127.0.0.1 rest.home" | sudo tee -a /etc/hosts > /dev/null
     fi
-    echo -e "${GREEN}✓ Installation complete! Go to http://rest.home:8000${NC}"
+    echo -e "${GREEN}✓ Installation complete!${NC}"
+    echo -e "${CYAN}Open your browser and go to: http://rest.home:8000/setup.html${NC}"
     read -p "Press Enter to return to menu..."
 }
 
