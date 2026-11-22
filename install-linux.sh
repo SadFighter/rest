@@ -42,7 +42,7 @@ After=default.target
 [Service]
 Type=simple
 WorkingDirectory=$DIR
-ExecStart=/usr/bin/python3 -m http.server 8000
+ExecStart=/usr/bin/python3 server.py
 Restart=on-failure
 RestartSec=5
 
@@ -57,7 +57,8 @@ EOF
         echo -e "${CYAN}Adding 'rest.home' to /etc/hosts (may ask for sudo password)...${NC}"
         echo "127.0.0.1 rest.home" | sudo tee -a /etc/hosts > /dev/null
     fi
-    echo -e "${GREEN}✓ Installation complete! Go to http://rest.home:8000${NC}"
+    echo -e "${GREEN}✓ Installation complete!${NC}"
+    echo -e "${CYAN}Open your browser and go to: http://rest.home:8000/setup.html${NC}"
     read -p "Press Enter to return to menu..."
 }
 
