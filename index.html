@@ -16,7 +16,6 @@
     font-family: "Courier New", monospace;
   }
 
-  /* SFONDO */
   #bg {
     position: fixed;
     inset: 0;
@@ -48,7 +47,6 @@
     z-index: 2;
   }
 
-  /* CONTENUTO */
   .ui {
     position: relative;
     z-index: 1;
@@ -86,7 +84,6 @@
     margin: 0 !important;
   }
 
-  /* BARRA DI RICERCA */
   #search-form {
     display: flex;
     align-items: center;
@@ -130,7 +127,6 @@
   }
   #engine-select option { background: #1a1a1a; color: #f0f0f0; }
 
-  /* BOOKMARKS */
   #bookmarks-container {
     display: flex;
     flex-wrap: wrap;
@@ -150,13 +146,8 @@
     position: relative;
     transition: filter 0.3s;
   }
-  /* Overlay effect quando il menu è aperto */
-  .bm-wrapper.menu-open .bm-circle {
-    filter: brightness(0.3) blur(2px);
-  }
-  .bm-wrapper.menu-open .bm-title {
-    opacity: 0.3;
-  }
+  .bm-wrapper.menu-open .bm-circle { filter: brightness(0.3) blur(2px); }
+  .bm-wrapper.menu-open .bm-title { opacity: 0.3; }
 
   .bm-circle {
     position: relative;
@@ -207,7 +198,7 @@
     overflow: hidden;
     white-space: nowrap;
     width: 120px;
-    filter: 
+    filter:
       drop-shadow(0 0 2px rgba(0, 0, 0, 1))
       drop-shadow(0 0 4px rgba(0, 0, 0, 1))
       drop-shadow(0 0 10px rgba(0, 0, 0, 1));
@@ -215,7 +206,6 @@
     transition: opacity 0.3s;
   }
 
-  /* BOTTONE 3 PUNTINI */
   .bm-menu-btn {
     position: absolute;
     top: -12px;
@@ -239,7 +229,6 @@
   .bm-wrapper:hover .bm-menu-btn, .bm-wrapper.menu-open .bm-menu-btn { opacity: 1; }
   .bm-menu-btn:hover { transform: scale(1.1); }
 
-  /* MENU TENDINA ASCII */
   .bm-dropdown {
     position: absolute;
     top: 100%;
@@ -257,9 +246,7 @@
       drop-shadow(0 4px 8px rgba(0, 0, 0, 1))
       drop-shadow(0 0 15px rgba(0, 0, 0, 0.8));
   }
-  .bm-wrapper.menu-open .bm-dropdown {
-    display: flex;
-  }
+  .bm-wrapper.menu-open .bm-dropdown { display: flex; }
 
   .bm-dropdown::before {
     content: "";
@@ -284,25 +271,10 @@
     align-items: center;
     gap: 0.5rem;
   }
-  .bm-dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-  }
-  .bm-dropdown-item .icon {
-    font-family: monospace;
-    font-size: 13px;
-    opacity: 0.8;
-  }
+  .bm-dropdown-item:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+  .bm-dropdown-item .icon { font-family: monospace; font-size: 13px; opacity: 0.8; }
 
-  /* BOTTONE AGGIUNGI */
-  #add-bm-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 50px;
-  }
-
+  #add-bm-wrapper { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 50px; }
   #add-bm-btn {
     width: 50px;
     height: 50px;
@@ -315,14 +287,192 @@
     align-items: center;
     justify-content: center;
     transition: color 0.2s;
-    filter: 
+    filter:
       drop-shadow(0 2px 3px rgba(0, 0, 0, 1))
       drop-shadow(0 0 6px rgba(0, 0, 0, 1))
       drop-shadow(0 0 15px rgba(0, 0, 0, 1));
   }
   #add-bm-btn:hover { color: #f0f0f0; }
 
-  /* MODALE PERSONALIZZATO */
+  #settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    filter:
+      drop-shadow(0 2px 3px rgba(0, 0, 0, 1))
+      drop-shadow(0 0 6px rgba(0, 0, 0, 1))
+      drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+  }
+  #settings-btn:hover { color: #fff; transform: rotate(90deg); }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .settings-window {
+    background: #050505;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,1));
+    overflow: hidden;
+  }
+
+  .settings-header {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+  }
+
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #222;
+  }
+  .setting-row:last-child { border-bottom: none; }
+
+  .setting-label {
+    color: #e0e0e0;
+    font-size: 14px;
+    width: 40%;
+  }
+
+  .setting-control {
+    width: 55%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .setting-control select {
+    background: #111;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 0.4rem;
+    font-family: monospace;
+    font-size: 13px;
+    width: 100%;
+    max-width: 200px;
+    outline: none;
+  }
+
+  .active-scenes-preview {
+    color: #33ff66;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .btn-terminal {
+    background: transparent;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-terminal:hover { background: #fff; color: #000; }
+  .btn-terminal.danger { border-color: #ff5555; color: #ff5555; }
+  .btn-terminal.danger:hover { background: #ff5555; color: #000; }
+
+  #scene-selector {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+  }
+  #scene-selector.active { display: flex; }
+
+  .scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    overflow-y: auto;
+    padding: 1rem 0;
+    max-height: 50vh;
+  }
+
+  .scene-card {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .scene-card:hover { border-color: #888; }
+  .scene-card.selected { border-color: #33ff66; background: #0a1a0a; }
+  .scene-card.selected .scene-name { color: #33ff66; }
+
+  .scene-preview {
+    width: 100%;
+    height: 80px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scene-preview ascii-art {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .scene-preview canvas, .scene-preview pre {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .scene-name {
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .settings-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid #333;
+  }
+
   #custom-modal {
     position: fixed;
     inset: 0;
@@ -385,21 +535,80 @@
   }
   .modal-btn:hover { background: rgba(255, 255, 255, 0.15); }
   .modal-btn.primary { border-color: #fff; font-weight: bold; }
-
-  @media (max-width: 600px) {
-    #search-input { width: 50vw; }
-    .ui { gap: 1rem; padding: 1rem; }
-    #greeting ascii-banner { font-size: 7px; }
-    #clock pre { font-size: 5px !important; }
-    .bm-wrapper, #add-bm-wrapper { width: 40px; }
-    .bm-circle, #add-bm-btn { width: 40px; height: 40px; }
-    .bm-circle pre { font-size: 1.8px; }
-    .bm-icon { width: 20px; height: 20px; }
-    .modal-box { min-width: 260px; }
-  }
 </style>
 </head>
 <body>
+
+  <!-- CARD UTENTE (Placeholder per il futuro) -->
+  <div id="user-card" style="position:fixed; top:20px; left:20px; z-index:10; display:none;"></div>
+
+  <button id="settings-btn" title="Settings">⚙</button>
+
+  <div id="settings-overlay" class="modal-overlay">
+    <div class="settings-window">
+      <div class="settings-header">CONFIG</div>
+      <div id="settings-main-view">
+        <div class="setting-row">
+          <div class="setting-label">Search Engine</div>
+          <div class="setting-control">
+            <select id="set-engine">
+              <option value="duckduckgo">DuckDuckGo</option>
+              <option value="brave">Brave</option>
+              <option value="google">Google</option>
+            </select>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">Clock Format</div>
+          <div class="setting-control">
+            <select id="set-clock">
+              <option value="24">24-hour</option>
+              <option value="12">12-hour (AM/PM)</option>
+            </select>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">Greeting Language</div>
+          <div class="setting-control">
+            <select id="set-lang">
+              <option value="en">English</option>
+              <option value="it">Italiano</option>
+            </select>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">Bookmark Links</div>
+          <div class="setting-control">
+            <select id="set-bookmark-target">
+              <option value="_self">Same tab</option>
+              <option value="_blank">New tab</option>
+            </select>
+          </div>
+        </div>
+        <div class="setting-row" style="border-bottom: none; margin-top: 1rem;">
+          <div class="setting-label">Active Scenes:</div>
+          <div class="setting-control">
+            <div id="active-scenes-preview" class="active-scenes-preview">Loading...</div>
+            <button id="btn-open-scenes" class="btn-terminal">[ SELECT ]</button>
+          </div>
+        </div>
+        <div class="setting-row" style="justify-content: flex-start; border-bottom: none;">
+          <button id="reset-btn" class="btn-terminal danger" style="font-size: 11px;">[ RESET ALL SETTINGS ]</button>
+        </div>
+      </div>
+
+      <div id="scene-selector">
+        <div style="color: #fff; margin-bottom: 0.5rem; font-size: 14px;">Select Active Scenes:</div>
+        <div class="scene-grid" id="scene-grid-container"></div>
+      </div>
+
+      <div class="settings-footer">
+        <button id="btn-cancel" class="btn-terminal">[ CANCEL ]</button>
+        <button id="btn-back" class="btn-terminal" style="display: none;">[ BACK ]</button>
+        <button id="btn-apply" class="btn-terminal" style="border-color: #33ff66; color: #33ff66;">[ APPLY ]</button>
+      </div>
+    </div>
+  </div>
 
   <div id="bg">
     <ascii-art id="scene" piece=""></ascii-art>
@@ -423,7 +632,6 @@
     <div id="bookmarks-container"></div>
   </div>
 
-  <!-- MODALE PERSONALIZZATO -->
   <div id="custom-modal">
     <div class="modal-box">
       <div class="modal-label" id="modal-title">Title</div>
@@ -440,29 +648,60 @@
 (function() {
   "use strict";
 
-  const SCENE = [
-    "alpine-dawn","amer-fort","aurora-fjord","black-prism","cloud-sea",
-    "deep-reef","desert-night","earthrise","gangaur-ghat","jal-mahal",
-    "jungle-falls","kite-festival","kyoto-dusk","lake-pichola","lantern-lake",
-    "marine-drive","misty-forest","night-coast","night-highway","ocean-sunset",
-    "planet-scale","prism-city","salt-flat","saturn-rise","snow-train",
-    "storm-plains","taj-dawn","tokyo-rain","varanasi-ghats","volcano-night"
-  ];
+  // Legge il profilo salvato (per uso futuro)
+  fetch('/profile.json')
+    .then(res => {
+        if(res.ok) return res.json();
+        throw new Error("No profile");
+    })
+    .then(data => {
+        console.log("Profilo caricato per:", data.username);
+        // Qui in futuro popoleremo la #user-card
+    })
+    .catch(() => console.log("Nessun profilo trovato. Esegui setup.html per configurarlo."));
 
-  function pickScene() {
-    const stored = sessionStorage.getItem("ascii-scene");
-    if (stored) return stored;
-    const chosen = SCENE[Math.floor(Math.random() * SCENE.length)];
-    sessionStorage.setItem("ascii-scene", chosen);
-    return chosen;
+  const DEFAULT_SETTINGS = {
+    engine: "duckduckgo",
+    clock12: false,
+    lang: "en",
+    bookmarkTarget: "_self",
+    activeScenes: [
+      "alpine-dawn","amer-fort","aurora-fjord","black-prism","cloud-sea",
+      "deep-reef","desert-night","earthrise","gangaur-ghat","jal-mahal",
+      "jungle-falls","kite-festival","kyoto-dusk","lake-pichola","lantern-lake",
+      "marine-drive","misty-forest","night-coast","night-highway","ocean-sunset",
+      "planet-scale","prism-city","salt-flat","saturn-rise","snow-train",
+      "storm-plains","taj-dawn","tokyo-rain","varanasi-ghats","volcano-night"
+    ]
+  };
+
+  function getSettings() {
+    try {
+      const s = JSON.parse(localStorage.getItem("resthome-settings") || "{}");
+      return { ...DEFAULT_SETTINGS, ...s };
+    } catch { return { ...DEFAULT_SETTINGS }; }
   }
-  document.getElementById("scene").setAttribute("piece", pickScene());
+
+  function saveSettings(s) {
+    localStorage.setItem("resthome-settings", JSON.stringify(s));
+  }
+
+  let settings = getSettings();
+  let tempSettings = JSON.parse(JSON.stringify(settings));
 
   const GREETINGS = {
-    morning: ["good morning.", "good morning!", "morning.", "top of the morning.", "hey, good morning."],
-    afternoon: ["good afternoon.", "good afternoon!", "afternoon.", "hey, good afternoon.", "good day."],
-    evening: ["good evening.", "good evening!", "evening.", "hey, good evening.", "good night."],
-    night: ["good night.", "good night!", "night.", "still awake?", "sleep well."]
+    en: {
+      morning: ["good morning.", "good morning!", "morning.", "top of the morning.", "hey, good morning."],
+      afternoon: ["good afternoon.", "good afternoon!", "afternoon.", "hey, good afternoon.", "good day."],
+      evening: ["good evening.", "good evening!", "evening.", "hey, good evening.", "good night."],
+      night: ["good night.", "good night!", "night.", "still awake?", "sleep well."]
+    },
+    it: {
+      morning: ["buongiorno.", "buongiorno, si comincia.", "buongiorno!", "che si dice?", "pronti via."],
+      afternoon: ["buon pomeriggio.", "buon pomeriggio, si prosegue.", "buon pomeriggio!", "avanti così.", "buon lavoro."],
+      evening: ["buona sera.", "buona sera, si stacca.", "buona sera!", "che si dice?", "rilassati."],
+      night: ["buonanotte.", "buonanotte, ancora svegli?", "buonanotte!", "riposa.", "domani si vede."]
+    }
   };
 
   function getGreeting() {
@@ -472,10 +711,25 @@
     else if (h >= 12 && h < 18) bucket = "afternoon";
     else if (h >= 18 && h < 24) bucket = "evening";
     else bucket = "night";
-    const v = GREETINGS[bucket];
+    const v = GREETINGS[settings.lang][bucket];
     return v[Math.floor(Math.random() * v.length)];
   }
-  document.getElementById("greeting-banner").setAttribute("text", getGreeting());
+
+  function updateGreeting() {
+    document.getElementById("greeting-banner").setAttribute("text", getGreeting());
+  }
+
+  function pickScene() {
+    const stored = sessionStorage.getItem("ascii-scene");
+    if (stored && settings.activeScenes.includes(stored)) return stored;
+    const list = settings.activeScenes.length > 0 ? settings.activeScenes : DEFAULT_SETTINGS.activeScenes;
+    const chosen = list[Math.floor(Math.random() * list.length)];
+    sessionStorage.setItem("ascii-scene", chosen);
+    return chosen;
+  }
+
+  document.getElementById("scene").setAttribute("piece", pickScene());
+  updateGreeting();
 
   const ENGINES = {
     brave: "https://search.brave.com/search",
@@ -485,6 +739,8 @@
   const form = document.getElementById("search-form");
   const select = document.getElementById("engine-select");
   const input = document.getElementById("search-input");
+
+  select.value = settings.engine;
 
   form.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -497,20 +753,58 @@
     window.location.href = (ENGINES[select.value] || ENGINES.duckduckgo) + "?q=" + encodeURIComponent(q);
   });
 
-  const saved = localStorage.getItem("search-engine");
-  if (saved && ENGINES[saved]) select.value = saved;
   select.addEventListener("change", function() {
-    localStorage.setItem("search-engine", select.value);
+    settings.engine = select.value;
+    saveSettings(settings);
     input.focus();
   });
 
-  /* ============================================================
-     GESTIONE BOOKMARK, MENU E MODALI
-     ============================================================ */
+  const CIRCLE_ASCII = `
+                  ▓▓▓▓▓▓▓▓
+            ▓▓▓▓▓▓████████▓▓▓▓▓▓
+        ▓▓▓▓██████        ██████▓▓▓▓
+      ▓▓████                    ████▓▓
+    ▓▓██                            ██▓▓
+    ▓▓                                ▓▓
+  ▓▓██                                ██▓▓
+  ▓▓                                    ▓▓
+  ▓▓                                    ▓▓
+▓▓██                                    ██▓▓
+▓▓                                        ▓▓
+▓▓                                        ▓▓
+▓▓                                        ▓▓
+██▓▓                                    ▓▓██
+  ▓▓                                    ▓▓
+  ▓▓                                    ▓▓
+  ██▓▓                                ▓▓██
+    ▓▓                              ▓▓██
+    ██▓▓                            ▓▓
+      ██▓▓▓▓                    ▓▓▓▓██
+        ████▓▓▓▓▓▓        ▓▓▓▓▓▓████
+            ██████▓▓▓▓▓▓▓▓██████
+                  ████████
+  `;
+
+  function getBookmarks() {
+    try {
+      return JSON.parse(localStorage.getItem("resthome-bookmarks") || "[]");
+    } catch { return []; }
+  }
+
+  function saveBookmarks(list) {
+    localStorage.setItem("resthome-bookmarks", JSON.stringify(list));
+    renderBookmarks();
+  }
+
+  function getFavicon(url) {
+    try {
+      const u = new URL(url);
+      return `${u.origin}/favicon.ico`;
+    } catch { return ''; }
+  }
+
   const bmContainer = document.getElementById("bookmarks-container");
   const MAX_BM = 8;
-
-  // Elementi del modale
   const modal = document.getElementById("custom-modal");
   const modalTitle = document.getElementById("modal-title");
   const modalInput = document.getElementById("modal-input");
@@ -518,9 +812,8 @@
   const modalCancel = document.getElementById("modal-cancel");
   const modalSubmit = document.getElementById("modal-submit");
 
-  // Stato del modale
   let modalState = {
-    mode: "", // "add-step1", "add-step2", "edit-url", "edit-name", "edit-icon-url", "edit-icon-file"
+    mode: "",
     tempUrl: "",
     editIndex: -1
   };
@@ -531,14 +824,14 @@
     modalInput.style.display = "block";
     modalFile.style.display = "none";
     modalInput.value = "";
-    
+
     const list = getBookmarks();
 
     if (mode === "add-step1") {
       modalTitle.textContent = "Enter site URL";
       modalInput.placeholder = "https://...";
       modalSubmit.textContent = "Next";
-    } 
+    }
     else if (mode === "add-step2") {
       modalTitle.textContent = "Enter a name";
       modalSubmit.textContent = "Save";
@@ -572,7 +865,7 @@
 
   function closeModal() {
     modal.classList.remove("active");
-    modalFile.value = ""; // Reset file input
+    modalFile.value = "";
   }
 
   function handleModalSubmit() {
@@ -586,7 +879,7 @@
       let defaultName = "";
       try { defaultName = new URL(modalState.tempUrl).hostname.replace("www.", ""); } catch { defaultName = modalState.tempUrl; }
       modalInput.value = defaultName;
-    } 
+    }
     else if (modalState.mode === "add-step2") {
       const val = modalInput.value.trim() || modalState.tempUrl;
       list.push({ title: val, url: modalState.tempUrl });
@@ -624,7 +917,6 @@
         };
         reader.readAsDataURL(file);
       } else {
-        // Se nessun file è stato scelto, rimuove l'icona custom (torna al default)
         list[modalState.editIndex].customIcon = null;
         saveBookmarks(list);
         closeModal();
@@ -632,7 +924,6 @@
     }
   }
 
-  // Listener modale
   modalCancel.addEventListener("click", closeModal);
   modalSubmit.addEventListener("click", handleModalSubmit);
   modalInput.addEventListener("keydown", (e) => {
@@ -640,66 +931,18 @@
   });
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-  /* ============================================================
-     LOGICA BOOKMARK
-     ============================================================ */
-  const CIRCLE_ASCII = `
-                  ▓▓▓▓▓▓▓▓                  
-            ▓▓▓▓▓▓████████▓▓▓▓▓▓            
-        ▓▓▓▓██████        ██████▓▓▓▓        
-      ▓▓████                    ████▓▓      
-    ▓▓██                            ██▓▓    
-    ▓▓                                ▓▓    
-  ▓▓██                                ██▓▓  
-  ▓▓                                    ▓▓  
-  ▓▓                                    ▓▓  
-▓▓██                                    ██▓▓
-▓▓                                        ▓▓
-▓▓                                        ▓▓
-▓▓                                        ▓▓
-██▓▓                                    ▓▓██
-  ▓▓                                    ▓▓  
-  ▓▓                                    ▓▓  
-  ██▓▓                                ▓▓██  
-    ▓▓                              ▓▓██    
-    ██▓▓                            ▓▓      
-      ██▓▓▓▓                    ▓▓▓▓██      
-        ████▓▓▓▓▓▓        ▓▓▓▓▓▓████        
-            ██████▓▓▓▓▓▓▓▓██████            
-                  ████████                  
-  `;
-
-  function getBookmarks() {
-    try {
-      return JSON.parse(localStorage.getItem("resthome-bookmarks") || "[]");
-    } catch { return []; }
-  }
-
-  function saveBookmarks(list) {
-    localStorage.setItem("resthome-bookmarks", JSON.stringify(list));
-    renderBookmarks();
-  }
-
-  function getFavicon(url) {
-    try {
-      const u = new URL(url);
-      return `${u.origin}/favicon.ico`;
-    } catch { return ''; }
-  }
-
   let openMenuIndex = -1;
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest('.bm-wrapper')) {
+      openMenuIndex = -1;
+      document.querySelectorAll('.bm-wrapper').forEach(el => el.classList.remove('menu-open'));
+    }
+  });
 
   function renderBookmarks() {
     const list = getBookmarks();
     bmContainer.innerHTML = "";
-
-    // Chiudi il menu se clicchi fuori
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest('.bm-wrapper')) {
-        openMenuIndex = -1;
-        document.querySelectorAll('.bm-wrapper').forEach(el => el.classList.remove('menu-open'));
-      }
-    });
 
     list.forEach((bm, index) => {
       const wrapper = document.createElement("div");
@@ -708,24 +951,21 @@
 
       const circle = document.createElement("div");
       circle.className = "bm-circle";
-      
+
       const pre = document.createElement("pre");
       pre.textContent = CIRCLE_ASCII;
-      
+
       const icon = document.createElement("img");
       icon.className = "bm-icon";
-      // Usa l'icona custom (URL o Base64) se presente, altrimenti il favicon default
       icon.src = bm.customIcon || getFavicon(bm.url);
-      icon.onerror = () => { 
-        // Se l'immagine fallisce, nasconde l'icona custom e prova col favicon
+      icon.onerror = () => {
         if (bm.customIcon) {
           icon.src = getFavicon(bm.url);
         } else {
-          icon.style.display = 'none'; 
+          icon.style.display = 'none';
         }
       };
 
-      // Bottone 3 puntini
       const menuBtn = document.createElement("span");
       menuBtn.className = "bm-menu-btn";
       menuBtn.textContent = "⋮";
@@ -743,10 +983,9 @@
         }
       });
 
-      // Menu a tendina
       const dropdown = document.createElement("div");
       dropdown.className = "bm-dropdown";
-      
+
       const menuItems = [
         { icon: "✎", text: "Edit URL", action: () => openModal("edit-url", index) },
         { icon: "T", text: "Edit Name", action: () => openModal("edit-name", index) },
@@ -756,7 +995,7 @@
                const modalActions = document.querySelector('.modal-actions');
                const oldExtra = document.getElementById('modal-extra-file');
                if(oldExtra) oldExtra.remove();
-               
+
                const fileBtn = document.createElement('button');
                fileBtn.id = 'modal-extra-file';
                fileBtn.className = 'modal-btn';
@@ -804,7 +1043,11 @@
       wrapper.style.cursor = "pointer";
       wrapper.addEventListener("click", (e) => {
         if (!e.target.closest('.bm-menu-btn') && !e.target.closest('.bm-dropdown')) {
-          window.location.href = bm.url;
+          if (settings.bookmarkTarget === "_blank") {
+            window.open(bm.url, "_blank");
+          } else {
+            window.location.href = bm.url;
+          }
         }
       });
 
@@ -830,6 +1073,157 @@
       bmContainer.appendChild(addWrapper);
     }
   }
+
+  const settingsOverlay = document.getElementById("settings-overlay");
+  const mainView = document.getElementById("settings-main-view");
+  const sceneSelector = document.getElementById("scene-selector");
+  const sceneGrid = document.getElementById("scene-grid-container");
+  const activeScenesPreview = document.getElementById("active-scenes-preview");
+  const btnBack = document.getElementById("btn-back");
+  const btnCancel = document.getElementById("btn-cancel");
+  const btnApply = document.getElementById("btn-apply");
+  const btnOpenScenes = document.getElementById("btn-open-scenes");
+  const settingsBtn = document.getElementById("settings-btn");
+  const resetBtn = document.getElementById("reset-btn");
+
+  let sceneGridRendered = false;
+
+  function renderSceneGrid() {
+    if (sceneGridRendered) return;
+
+    sceneGrid.innerHTML = "";
+    DEFAULT_SETTINGS.activeScenes.forEach(scene => {
+      const isSelected = tempSettings.activeScenes.includes(scene);
+
+      const card = document.createElement("div");
+      card.className = `scene-card ${isSelected ? 'selected' : ''}`;
+
+      const previewDiv = document.createElement("div");
+      previewDiv.className = "scene-preview";
+
+      const miniAscii = document.createElement("ascii-art");
+      miniAscii.setAttribute("piece", scene);
+      miniAscii.setAttribute("fps", "1");
+      previewDiv.appendChild(miniAscii);
+
+      const nameDiv = document.createElement("div");
+      nameDiv.className = "scene-name";
+      nameDiv.textContent = scene;
+
+      card.appendChild(previewDiv);
+      card.appendChild(nameDiv);
+
+      card.addEventListener("click", () => {
+        if (tempSettings.activeScenes.includes(scene)) {
+          if (tempSettings.activeScenes.length > 1) {
+            tempSettings.activeScenes = tempSettings.activeScenes.filter(s => s !== scene);
+            card.classList.remove("selected");
+          }
+        } else {
+          tempSettings.activeScenes.push(scene);
+          card.classList.add("selected");
+        }
+      });
+
+      sceneGrid.appendChild(card);
+    });
+    sceneGridRendered = true;
+  }
+
+  function updateActiveScenesPreview() {
+    if (tempSettings.activeScenes.length === DEFAULT_SETTINGS.activeScenes.length) {
+      activeScenesPreview.textContent = "ALL";
+    } else if (tempSettings.activeScenes.length === 0) {
+      activeScenesPreview.textContent = "NONE";
+    } else {
+      const display = tempSettings.activeScenes.slice(0, 3).join(", ");
+      const extra = tempSettings.activeScenes.length > 3 ? "..." : "";
+      activeScenesPreview.textContent = display + extra;
+    }
+  }
+
+  settingsBtn.addEventListener("click", () => {
+    tempSettings = JSON.parse(JSON.stringify(settings));
+
+    document.getElementById("set-engine").value = tempSettings.engine;
+    document.getElementById("set-clock").value = tempSettings.clock12 ? "12" : "24";
+    document.getElementById("set-lang").value = tempSettings.lang;
+    document.getElementById("set-bookmark-target").value = tempSettings.bookmarkTarget;
+
+    updateActiveScenesPreview();
+
+    mainView.style.display = "block";
+    sceneSelector.style.display = "none";
+    btnBack.style.display = "none";
+    btnApply.style.display = "inline-block";
+
+    settingsOverlay.classList.add("active");
+  });
+
+  btnCancel.addEventListener("click", () => {
+    settingsOverlay.classList.remove("active");
+  });
+
+  btnBack.addEventListener("click", () => {
+    mainView.style.display = "block";
+    sceneSelector.style.display = "none";
+    btnBack.style.display = "none";
+    btnApply.style.display = "inline-block";
+    updateActiveScenesPreview();
+  });
+
+  btnOpenScenes.addEventListener("click", () => {
+    mainView.style.display = "none";
+    sceneSelector.style.display = "flex";
+    btnBack.style.display = "inline-block";
+    btnApply.style.display = "none";
+
+    renderSceneGrid();
+
+    document.querySelectorAll('.scene-card').forEach((card, i) => {
+      const scene = DEFAULT_SETTINGS.activeScenes[i];
+      if (tempSettings.activeScenes.includes(scene)) {
+        card.classList.add('selected');
+      } else {
+        card.classList.remove('selected');
+      }
+    });
+  });
+
+  btnApply.addEventListener("click", () => {
+    tempSettings.engine = document.getElementById("set-engine").value;
+    tempSettings.clock12 = document.getElementById("set-clock").value === "12";
+    tempSettings.lang = document.getElementById("set-lang").value;
+    tempSettings.bookmarkTarget = document.getElementById("set-bookmark-target").value;
+
+    settings = JSON.parse(JSON.stringify(tempSettings));
+    saveSettings(settings);
+
+    select.value = settings.engine;
+
+    const clockEl = document.getElementById("clock");
+    const options = JSON.parse(clockEl.getAttribute("options"));
+    options.hour12 = settings.clock12;
+    clockEl.setAttribute("options", JSON.stringify(options));
+
+    updateGreeting();
+
+    const currentScene = sessionStorage.getItem("ascii-scene");
+    if (!settings.activeScenes.includes(currentScene)) {
+      document.getElementById("scene").setAttribute("piece", pickScene());
+    }
+
+    settingsOverlay.classList.remove("active");
+  });
+
+  resetBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to reset all settings to default? This will also remove all bookmarks.")) {
+      localStorage.removeItem("resthome-settings");
+      localStorage.removeItem("resthome-bookmarks");
+      sessionStorage.removeItem("ascii-scene");
+      window.location.reload();
+    }
+  });
 
   renderBookmarks();
 })();
