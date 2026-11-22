@@ -33,7 +33,7 @@ function Install-Rest {
         return
     }
 
-    $Action = New-ScheduledTaskAction -Execute $PythonExe -Argument "-m http.server 8000" -WorkingDirectory $ScriptDir
+    $Action = New-ScheduledTaskAction -Execute $PythonExe -Argument "server.py" -WorkingDirectory $ScriptDir
     $Trigger = New-ScheduledTaskTrigger -AtLogOn
     $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit 0
     Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Force | Out-Null
@@ -44,7 +44,8 @@ function Install-Rest {
     }
 
     Start-ScheduledTask -TaskName $TaskName
-    Write-Host "✓ Installation complete! Go to http://rest.home:8000" -ForegroundColor Green
+    Write-Host "✓ Installation complete!" -ForegroundColor Green
+    Write-Host "Open your browser and go to: http://rest.home:8000/setup.html" -ForegroundColor Cyan
     Pause
 }
 
