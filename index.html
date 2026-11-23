@@ -539,7 +539,6 @@
 </head>
 <body>
 
-  <!-- CARD UTENTE (Placeholder per il futuro) -->
   <div id="user-card" style="position:fixed; top:20px; left:20px; z-index:10; display:none;"></div>
 
   <button id="settings-btn" title="Settings">⚙</button>
@@ -648,17 +647,10 @@
 (function() {
   "use strict";
 
-  // Legge il profilo salvato (per uso futuro)
   fetch('/profile.json')
-    .then(res => {
-        if(res.ok) return res.json();
-        throw new Error("No profile");
-    })
-    .then(data => {
-        console.log("Profilo caricato per:", data.username);
-        // Qui in futuro popoleremo la #user-card
-    })
-    .catch(() => console.log("Nessun profilo trovato. Esegui setup.html per configurarlo."));
+    .then(res => { if(res.ok) return res.json(); throw new Error("No profile"); })
+    .then(data => console.log("Profilo caricato per:", data.username))
+    .catch(() => console.log("Nessun profilo trovato."));
 
   const DEFAULT_SETTINGS = {
     engine: "duckduckgo",
@@ -786,21 +778,14 @@
   `;
 
   function getBookmarks() {
-    try {
-      return JSON.parse(localStorage.getItem("resthome-bookmarks") || "[]");
-    } catch { return []; }
+    try { return JSON.parse(localStorage.getItem("resthome-bookmarks") || "[]"); } catch { return []; }
   }
-
   function saveBookmarks(list) {
     localStorage.setItem("resthome-bookmarks", JSON.stringify(list));
     renderBookmarks();
   }
-
   function getFavicon(url) {
-    try {
-      const u = new URL(url);
-      return `${u.origin}/favicon.ico`;
-    } catch { return ''; }
+    try { const u = new URL(url); return `${u.origin}/favicon.ico`; } catch { return ''; }
   }
 
   const bmContainer = document.getElementById("bookmarks-container");
@@ -812,11 +797,7 @@
   const modalCancel = document.getElementById("modal-cancel");
   const modalSubmit = document.getElementById("modal-submit");
 
-  let modalState = {
-    mode: "",
-    tempUrl: "",
-    editIndex: -1
-  };
+  let modalState = { mode: "", tempUrl: "", editIndex: -1 };
 
   function openModal(mode, index = -1) {
     modalState.mode = mode;
@@ -824,35 +805,29 @@
     modalInput.style.display = "block";
     modalFile.style.display = "none";
     modalInput.value = "";
-
     const list = getBookmarks();
 
     if (mode === "add-step1") {
       modalTitle.textContent = "Enter site URL";
       modalInput.placeholder = "https://...";
       modalSubmit.textContent = "Next";
-    }
-    else if (mode === "add-step2") {
+    } else if (mode === "add-step2") {
       modalTitle.textContent = "Enter a name";
       modalSubmit.textContent = "Save";
-    }
-    else if (mode === "edit-url") {
+    } else if (mode === "edit-url") {
       modalTitle.textContent = "Edit URL";
       modalInput.value = list[index].url;
       modalSubmit.textContent = "Save";
-    }
-    else if (mode === "edit-name") {
+    } else if (mode === "edit-name") {
       modalTitle.textContent = "Edit Name";
       modalInput.value = list[index].title;
       modalSubmit.textContent = "Save";
-    }
-    else if (mode === "edit-icon-url") {
+    } else if (mode === "edit-icon-url") {
       modalTitle.textContent = "Enter icon URL (empty for default)";
       modalInput.placeholder = "https://.../image.png";
       modalInput.value = (list[index].customIcon && !list[index].customIcon.startsWith("data:")) ? list[index].customIcon : "";
       modalSubmit.textContent = "Save";
-    }
-    else if (mode === "edit-icon-file") {
+    } else if (mode === "edit-icon-file") {
       modalTitle.textContent = "Upload image file (or leave empty)";
       modalInput.style.display = "none";
       modalFile.style.display = "block";
@@ -870,7 +845,6 @@
 
   function handleModalSubmit() {
     const list = getBookmarks();
-
     if (modalState.mode === "add-step1") {
       const val = modalInput.value.trim();
       if (!val) return;
@@ -879,34 +853,29 @@
       let defaultName = "";
       try { defaultName = new URL(modalState.tempUrl).hostname.replace("www.", ""); } catch { defaultName = modalState.tempUrl; }
       modalInput.value = defaultName;
-    }
-    else if (modalState.mode === "add-step2") {
+    } else if (modalState.mode === "add-step2") {
       const val = modalInput.value.trim() || modalState.tempUrl;
       list.push({ title: val, url: modalState.tempUrl });
       saveBookmarks(list);
       closeModal();
-    }
-    else if (modalState.mode === "edit-url") {
+    } else if (modalState.mode === "edit-url") {
       const val = modalInput.value.trim();
       if (!val) return;
       list[modalState.editIndex].url = val.startsWith("http") ? val : "https://" + val;
       saveBookmarks(list);
       closeModal();
-    }
-    else if (modalState.mode === "edit-name") {
+    } else if (modalState.mode === "edit-name") {
       const val = modalInput.value.trim();
       if (!val) return;
       list[modalState.editIndex].title = val;
       saveBookmarks(list);
       closeModal();
-    }
-    else if (modalState.mode === "edit-icon-url") {
+    } else if (modalState.mode === "edit-icon-url") {
       const val = modalInput.value.trim();
       list[modalState.editIndex].customIcon = val || null;
       saveBookmarks(list);
       closeModal();
-    }
-    else if (modalState.mode === "edit-icon-file") {
+    } else if (modalState.mode === "edit-icon-file") {
       const file = modalFile.files[0];
       if (file) {
         const reader = new FileReader();
@@ -932,7 +901,6 @@
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
   let openMenuIndex = -1;
-
   document.addEventListener("click", (e) => {
     if (!e.target.closest('.bm-wrapper')) {
       openMenuIndex = -1;
@@ -951,19 +919,14 @@
 
       const circle = document.createElement("div");
       circle.className = "bm-circle";
-
       const pre = document.createElement("pre");
       pre.textContent = CIRCLE_ASCII;
-
       const icon = document.createElement("img");
       icon.className = "bm-icon";
       icon.src = bm.customIcon || getFavicon(bm.url);
       icon.onerror = () => {
-        if (bm.customIcon) {
-          icon.src = getFavicon(bm.url);
-        } else {
-          icon.style.display = 'none';
-        }
+        if (bm.customIcon) icon.src = getFavicon(bm.url);
+        else icon.style.display = 'none';
       };
 
       const menuBtn = document.createElement("span");
@@ -971,12 +934,9 @@
       menuBtn.textContent = "⋮";
       menuBtn.title = "Options";
       menuBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (openMenuIndex === index) {
-          openMenuIndex = -1;
-          wrapper.classList.remove("menu-open");
-        } else {
+        e.preventDefault(); e.stopPropagation();
+        if (openMenuIndex === index) { openMenuIndex = -1; wrapper.classList.remove("menu-open"); } 
+        else {
           openMenuIndex = index;
           document.querySelectorAll('.bm-wrapper').forEach(el => el.classList.remove('menu-open'));
           wrapper.classList.add("menu-open");
@@ -985,7 +945,6 @@
 
       const dropdown = document.createElement("div");
       dropdown.className = "bm-dropdown";
-
       const menuItems = [
         { icon: "✎", text: "Edit URL", action: () => openModal("edit-url", index) },
         { icon: "T", text: "Edit Name", action: () => openModal("edit-name", index) },
@@ -995,16 +954,12 @@
                const modalActions = document.querySelector('.modal-actions');
                const oldExtra = document.getElementById('modal-extra-file');
                if(oldExtra) oldExtra.remove();
-
                const fileBtn = document.createElement('button');
                fileBtn.id = 'modal-extra-file';
                fileBtn.className = 'modal-btn';
                fileBtn.textContent = 'Browse file...';
                fileBtn.style.marginRight = 'auto';
-               fileBtn.onclick = () => {
-                 closeModal();
-                 openModal("edit-icon-file", index);
-               };
+               fileBtn.onclick = () => { closeModal(); openModal("edit-icon-file", index); };
                modalActions.prepend(fileBtn);
             }, 10);
         }},
@@ -1020,8 +975,7 @@
         el.className = "bm-dropdown-item";
         el.innerHTML = `<span class="icon">${item.icon}</span> ${item.text}`;
         el.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
+          e.preventDefault(); e.stopPropagation();
           wrapper.classList.remove("menu-open");
           openMenuIndex = -1;
           item.action();
@@ -1043,31 +997,24 @@
       wrapper.style.cursor = "pointer";
       wrapper.addEventListener("click", (e) => {
         if (!e.target.closest('.bm-menu-btn') && !e.target.closest('.bm-dropdown')) {
-          if (settings.bookmarkTarget === "_blank") {
-            window.open(bm.url, "_blank");
-          } else {
-            window.location.href = bm.url;
-          }
+          if (settings.bookmarkTarget === "_blank") window.open(bm.url, "_blank");
+          else window.location.href = bm.url;
         }
       });
-
       bmContainer.appendChild(wrapper);
     });
 
     if (list.length < MAX_BM) {
       const addWrapper = document.createElement("div");
       addWrapper.id = "add-bm-wrapper";
-
       const addBtn = document.createElement("button");
       addBtn.id = "add-bm-btn";
       addBtn.innerHTML = "+";
       addBtn.title = "Add bookmark";
       addBtn.addEventListener("click", () => openModal("add-step1"));
-
       const emptyTitle = document.createElement("div");
       emptyTitle.className = "bm-title";
       emptyTitle.innerHTML = "&nbsp;";
-
       addWrapper.appendChild(addBtn);
       addWrapper.appendChild(emptyTitle);
       bmContainer.appendChild(addWrapper);
@@ -1085,34 +1032,26 @@
   const btnOpenScenes = document.getElementById("btn-open-scenes");
   const settingsBtn = document.getElementById("settings-btn");
   const resetBtn = document.getElementById("reset-btn");
-
   let sceneGridRendered = false;
 
   function renderSceneGrid() {
     if (sceneGridRendered) return;
-
     sceneGrid.innerHTML = "";
     DEFAULT_SETTINGS.activeScenes.forEach(scene => {
       const isSelected = tempSettings.activeScenes.includes(scene);
-
       const card = document.createElement("div");
       card.className = `scene-card ${isSelected ? 'selected' : ''}`;
-
       const previewDiv = document.createElement("div");
       previewDiv.className = "scene-preview";
-
       const miniAscii = document.createElement("ascii-art");
       miniAscii.setAttribute("piece", scene);
       miniAscii.setAttribute("fps", "1");
       previewDiv.appendChild(miniAscii);
-
       const nameDiv = document.createElement("div");
       nameDiv.className = "scene-name";
       nameDiv.textContent = scene;
-
       card.appendChild(previewDiv);
       card.appendChild(nameDiv);
-
       card.addEventListener("click", () => {
         if (tempSettings.activeScenes.includes(scene)) {
           if (tempSettings.activeScenes.length > 1) {
@@ -1124,18 +1063,15 @@
           card.classList.add("selected");
         }
       });
-
       sceneGrid.appendChild(card);
     });
     sceneGridRendered = true;
   }
 
   function updateActiveScenesPreview() {
-    if (tempSettings.activeScenes.length === DEFAULT_SETTINGS.activeScenes.length) {
-      activeScenesPreview.textContent = "ALL";
-    } else if (tempSettings.activeScenes.length === 0) {
-      activeScenesPreview.textContent = "NONE";
-    } else {
+    if (tempSettings.activeScenes.length === DEFAULT_SETTINGS.activeScenes.length) activeScenesPreview.textContent = "ALL";
+    else if (tempSettings.activeScenes.length === 0) activeScenesPreview.textContent = "NONE";
+    else {
       const display = tempSettings.activeScenes.slice(0, 3).join(", ");
       const extra = tempSettings.activeScenes.length > 3 ? "..." : "";
       activeScenesPreview.textContent = display + extra;
@@ -1144,25 +1080,19 @@
 
   settingsBtn.addEventListener("click", () => {
     tempSettings = JSON.parse(JSON.stringify(settings));
-
     document.getElementById("set-engine").value = tempSettings.engine;
     document.getElementById("set-clock").value = tempSettings.clock12 ? "12" : "24";
     document.getElementById("set-lang").value = tempSettings.lang;
     document.getElementById("set-bookmark-target").value = tempSettings.bookmarkTarget;
-
     updateActiveScenesPreview();
-
     mainView.style.display = "block";
     sceneSelector.style.display = "none";
     btnBack.style.display = "none";
     btnApply.style.display = "inline-block";
-
     settingsOverlay.classList.add("active");
   });
 
-  btnCancel.addEventListener("click", () => {
-    settingsOverlay.classList.remove("active");
-  });
+  btnCancel.addEventListener("click", () => settingsOverlay.classList.remove("active"));
 
   btnBack.addEventListener("click", () => {
     mainView.style.display = "block";
@@ -1177,16 +1107,11 @@
     sceneSelector.style.display = "flex";
     btnBack.style.display = "inline-block";
     btnApply.style.display = "none";
-
     renderSceneGrid();
-
     document.querySelectorAll('.scene-card').forEach((card, i) => {
       const scene = DEFAULT_SETTINGS.activeScenes[i];
-      if (tempSettings.activeScenes.includes(scene)) {
-        card.classList.add('selected');
-      } else {
-        card.classList.remove('selected');
-      }
+      if (tempSettings.activeScenes.includes(scene)) card.classList.add('selected');
+      else card.classList.remove('selected');
     });
   });
 
@@ -1195,24 +1120,18 @@
     tempSettings.clock12 = document.getElementById("set-clock").value === "12";
     tempSettings.lang = document.getElementById("set-lang").value;
     tempSettings.bookmarkTarget = document.getElementById("set-bookmark-target").value;
-
     settings = JSON.parse(JSON.stringify(tempSettings));
     saveSettings(settings);
-
     select.value = settings.engine;
-
     const clockEl = document.getElementById("clock");
     const options = JSON.parse(clockEl.getAttribute("options"));
     options.hour12 = settings.clock12;
     clockEl.setAttribute("options", JSON.stringify(options));
-
     updateGreeting();
-
     const currentScene = sessionStorage.getItem("ascii-scene");
     if (!settings.activeScenes.includes(currentScene)) {
       document.getElementById("scene").setAttribute("piece", pickScene());
     }
-
     settingsOverlay.classList.remove("active");
   });
 
