@@ -44,8 +44,19 @@ function Install-Rest {
     }
 
     Start-ScheduledTask -TaskName $TaskName
+    
     Write-Host "✓ Installation complete!" -ForegroundColor Green
-    Write-Host "Open your browser and go to: http://rest.home:8000/setup.html" -ForegroundColor Cyan
+    Write-Host "Launching setup in Kiosk mode..." -ForegroundColor Cyan
+    
+    $FirefoxPath = "C:\Program Files\Mozilla Firefox\firefox.exe"
+    if (Test-Path $FirefoxPath) {
+        Start-Process -FilePath $FirefoxPath -ArgumentList "-kiosk", "-private-window", "http://rest.home:8000/setup.html" -Wait
+    } else {
+        Start-Process "firefox" -ArgumentList "-kiosk", "-private-window", "http://rest.home:8000/setup.html" -Wait
+    }
+    
+    Write-Host "`n✓ Setup complete!" -ForegroundColor Green
+    Write-Host "rest. is now available at http://rest.home:8000" -ForegroundColor Cyan
     Pause
 }
 
