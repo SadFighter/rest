@@ -57,8 +57,16 @@ EOF
         echo -e "${CYAN}Adding 'rest.home' to /etc/hosts (may ask for sudo password)...${NC}"
         echo "127.0.0.1 rest.home" | sudo tee -a /etc/hosts > /dev/null
     fi
+    
     echo -e "${GREEN}✓ Installation complete!${NC}"
-    echo -e "${CYAN}Open your browser and go to: http://rest.home:8000/setup.html${NC}"
+    echo -e "${CYAN}Launching setup in Kiosk mode...${NC}"
+    
+    # Lancia Firefox in modalità Kiosk e ASPETTA che venga chiuso
+    firefox --kiosk --private-window "http://rest.home:8000/setup.html"
+    
+    # Questo codice viene eseguito SOLO dopo che Firefox è stato chiuso
+    echo -e "\n${GREEN}✓ Setup complete!${NC}"
+    echo -e "${CYAN}rest. is now available at http://rest.home:8000${NC}"
     read -p "Press Enter to return to menu..."
 }
 
