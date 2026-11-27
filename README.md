@@ -30,7 +30,6 @@
 ![Demo of rest.](assets/examples.gif)
  
 </div>
----
  
 ## Features
  
